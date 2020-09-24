@@ -47,7 +47,7 @@ namespace MediaCore.Controllers
         [Route("GetMediav1")]
         public string GetMediav1()
         {
-           return "It too works!!";
+           return "It works well!!";
         }
 
         [HttpGet]  
