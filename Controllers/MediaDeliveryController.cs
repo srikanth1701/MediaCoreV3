@@ -44,6 +44,13 @@ namespace MediaCore.Controllers
         }
 
         [HttpGet]  
+        [Route("GetMediav1")]
+        public string GetMediav1()
+        {
+           return "It works!!";
+        }
+
+        [HttpGet]  
         [Route("GetMedias")]
         public IEnumerable<Media> GetMedias()
         {
