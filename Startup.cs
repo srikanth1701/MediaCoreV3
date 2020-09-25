@@ -28,7 +28,11 @@ namespace MediaCore
         {
             services.AddControllers();
             services.AddSingleton<IMediaService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
-             
+            services.AddCors(options =>
+                {
+                options.AddPolicy("AllowMyOrigin",
+                builder => builder.WithOrigins("http://localhost:4200/"));
+                });
         }
 
         /// <summary>
@@ -62,6 +66,8 @@ namespace MediaCore
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors("AllowMyOrigin");
 
             app.UseEndpoints(endpoints =>
             {
