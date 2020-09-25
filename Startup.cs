@@ -31,7 +31,7 @@ namespace MediaCore
             services.AddCors(options =>
                 {
                 options.AddPolicy("AllowMyOrigin",
-                builder => builder.WithOrigins("http://localhost:4200/").AllowAnyMethod());
+                builder => builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader());
                 });
         }
 
