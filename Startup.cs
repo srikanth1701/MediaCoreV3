@@ -28,11 +28,7 @@ namespace MediaCore
         {
             services.AddControllers();
             services.AddSingleton<IMediaService>(InitializeCosmosClientInstanceAsync(Configuration.GetSection("CosmosDb")).GetAwaiter().GetResult());
-            services.AddCors(options =>
-                {
-                options.AddPolicy("AllowMyOrigin",
-                builder => builder.WithOrigins("http://localhost:4200/").AllowAnyMethod().AllowAnyHeader());
-                });
+            services.AddCors();
         }
 
         /// <summary>
@@ -61,13 +57,17 @@ namespace MediaCore
                 app.UseDeveloperExceptionPage();
             }
 
+             app.UseCors(builder => builder
+        .WithOrigins("http://localhost:4200")
+        .AllowAnyMethod()
+        .AllowCredentials()
+        .WithHeaders("*"));
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseCors("AllowMyOrigin");
 
             app.UseEndpoints(endpoints =>
             {
